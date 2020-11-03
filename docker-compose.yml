@@ -1,0 +1,39 @@
+version: '3.7'
+services:
+  psgc-api:
+    build:
+      context: .
+    volumes:
+      - ./app:/var/www/html:rw
+    environment:
+      - APP_NAME=Laravel
+      - APP_ENV=local
+      - APP_DEBUG=true
+      - DB_HOST=psgc-db
+      - DB_DATABASE=psgc_api
+      - DB_USERNAME=psgc_user
+      - DB_PASSWORD=password
+    networks:
+      - psych_net
+    depends_on:
+      - psgc-db
+    ports:
+      - 9095:80
+  psgc-db:
+    image: mysql:8
+    environment:
+      - MYSQL_DATABASE=psgc_api
+      - MYSQL_USER=psgc_user
+      - MYSQL_PORT=3306
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_PASSWORD=password
+    volumes:
+      - db:/var/lib/mysql:rw
+    command: --default-authentication-plugin=mysql_native_password --sql_mode=NO_ENGINE_SUBSTITUTION
+    networks:
+      - psych_net
+networks:
+  psych_net:
+    external: true
+volumes:
+  db:
