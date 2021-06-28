@@ -46,7 +46,7 @@ jobs:
       - name: PSGC Laravel API
         uses: docker/build-push-action@v2
         with:
-          context: ./app
+          context: ./
           file: ./Dockerfile
           builder: ${{ steps.buildx.outputs.name }}
           platforms: linux/amd64,linux/arm64/v8
