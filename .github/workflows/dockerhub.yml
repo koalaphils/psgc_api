@@ -25,6 +25,8 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout Reppo
         uses: actions/checkout@v2
+        with:
+          submodules: recursive
       - name: Login to Dockerhub
         uses: docker/login-action@v1
         with:
@@ -44,7 +46,7 @@ jobs:
       - name: PSGC Laravel API
         uses: docker/build-push-action@v2
         with:
-          context: ./
+          context: ./app
           file: ./Dockerfile
           builder: ${{ steps.buildx.outputs.name }}
           platforms: linux/amd64,linux/arm64/v8
