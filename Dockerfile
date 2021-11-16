@@ -1,4 +1,4 @@
-FROM koalaphils/php:7.4-apache
+FROM ghcr.io/koalaphils/php:7-apache
 
 #Apache changes for document root and PHP configuration changes
 RUN sed -i "s|/var/www/html|/var/www/html/public|g" $APACHE_CONFDIR/sites-enabled/000-default.conf \

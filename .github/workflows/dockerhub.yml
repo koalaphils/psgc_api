@@ -19,7 +19,8 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       packages: write
-
+    env:
+      version: latest
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -49,9 +50,9 @@ jobs:
           file: ./Dockerfile
           builder: ${{ steps.buildx.outputs.name }}
           platforms: linux/amd64,linux/arm64/v8
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          cache-from: type=registry,ref=ghcr.io/${{ github.repository_owner }}/cache/psgc-api:${{ env.version }}
+          cache-to: type=registry,mode=max,ref=ghcr.io/${{ github.repository_owner }}/cache/psgc-api:${{ env.version }}
           push: true
           tags: |
-            ${{ github.repository_owner }}/psgc-api:latest
-            ghcr.io/${{ github.repository_owner }}/psgc-api:latest
+            ghcr.io/${{ github.repository_owner }}/psgc-api:${{ env.version }}
+            ${{ github.repository_owner }}/psgc-api:${{ env.version }}
