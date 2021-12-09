@@ -1,26 +1,29 @@
+x-environment: &php-env
+  environment:
+    - APP_NAME=Laravel
+    - APP_ENV=local
+    - APP_DEBUG=true
+    - DB_HOST=psgc-db
+    - DB_DATABASE=psgc_api
+    - DB_USERNAME=psgc_user
+    - DB_PASSWORD=password
+    - DB_PREFIX=psgc_
 version: '3.7'
 services:
   psgc-api:
+    <<: *php-env
     build:
       context: .
+    image: psgc-api
     volumes:
       - ./app:/var/www/html:rw
-    environment:
-      - APP_NAME=Laravel
-      - APP_ENV=local
-      - APP_DEBUG=true
-      - DB_HOST=psgc-db
-      - DB_DATABASE=psgc_api
-      - DB_USERNAME=psgc_user
-      - DB_PASSWORD=password
-    networks:
-      - psych_net
     depends_on:
       - psgc-db
+    restart: unless-stopped
     ports:
       - 9095:80
   psgc-db:
-    image: mysql:8
+    image: mysql/mysql-server:8.0
     environment:
       - MYSQL_DATABASE=psgc_api
       - MYSQL_USER=psgc_user
@@ -30,10 +33,5 @@ services:
     volumes:
       - db:/var/lib/mysql:rw
     command: --default-authentication-plugin=mysql_native_password --sql_mode=NO_ENGINE_SUBSTITUTION
-    networks:
-      - psych_net
-networks:
-  psych_net:
-    external: true
 volumes:
   db:
