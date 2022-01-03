@@ -68,8 +68,8 @@ jobs:
           cache-to: type=registry,mode=max,ref=ghcr.io/${{ github.repository_owner }}/cache/psgc-api:${{ env.version }}
           push: true
           tags: |
-            ghcr.io/${{ github.repository_owner }}/psgc-api:-${{ needs.build-versions.outputs.date }}
-            ${{ github.repository_owner }}/psgc-api:-${{ needs.build-versions.outputs.date }}
+            ghcr.io/${{ github.repository_owner }}/psgc-api:${{ needs.build-versions.outputs.date }}
+            ${{ github.repository_owner }}/psgc-api:${{ needs.build-versions.outputs.date }}
             ghcr.io/${{ github.repository_owner }}/psgc-api:${{ needs.build-versions.outputs.sha }}
             ${{ github.repository_owner }}/psgc-api:${{ needs.build-versions.outputs.sha }}
             ghcr.io/${{ github.repository_owner }}/psgc-api:${{ env.version }}
