@@ -24,7 +24,7 @@ RUN sed -i "s|exec \"\$@\"||g" `which docker-php-entrypoint` \
     . \$PWD/.env;\n \
     if [ \"\$APP_KEY\" = \"\" ]; then php artisan key:generate --ansi; fi;\n \
     php artisan config:cache;\n \
-    php artisan migrate; \n \
+    php artisan migrate --force; \n \
     #php artisan psgc:parse; \n \
     exec \"\$@\";" >> `which docker-php-entrypoint` \
   ;
