@@ -1,4 +1,4 @@
-FROM ghcr.io/koalaphils/php:7-apache
+FROM ghcr.io/koalaphils/php:8-apache
 
 COPY opt/php/*.ini $PHP_INI_DIR/conf.d/
 #Copy codes to html folder
