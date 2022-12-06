@@ -1,12 +1,20 @@
 FROM ghcr.io/koalaphils/php:8-apache
 
+COPY --from=composer/composer /usr/bin/composer /usr/local/bin/composer
+RUN composer config --global use-github-api false
+
 COPY opt/php/*.ini $PHP_INI_DIR/conf.d/
 #Copy codes to html folder
 COPY app /var/www/html
 WORKDIR /var/www/html
 
 #Apache changes for document root and PHP configuration changes
-RUN docker-php-ext-install pdo_mysql \
+RUN docker-php-ext-enable  \
+    event \
+    opcache \
+    pcntl \
+    pdo_mysql \
+    zip \
   && sed -i "s|/var/www/html|/var/www/html/public|g" $APACHE_CONFDIR/sites-enabled/000-default.conf \
   ; composer config --global use-github-api false \
   ; rm -rf vendor && mkdir -p vendor && php -d memory_limit=-1 `which composer` install -no --apcu-autoloader --no-scripts --no-progress --no-autoloader --no-cache \
