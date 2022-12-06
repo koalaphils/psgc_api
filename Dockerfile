@@ -10,6 +10,7 @@ WORKDIR /var/www/html
 
 #Apache changes for document root and PHP configuration changes
 RUN docker-php-ext-enable  \
+    apcu \
     event \
     opcache \
     pcntl \
