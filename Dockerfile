@@ -17,7 +17,6 @@ RUN docker-php-ext-enable  \
     pdo_mysql \
     zip \
   && sed -i "s|/var/www/html|/var/www/html/public|g" $APACHE_CONFDIR/sites-enabled/000-default.conf \
-  ; composer config --global use-github-api false \
   ; rm -rf vendor && mkdir -p vendor && php -d memory_limit=-1 `which composer` install -no --apcu-autoloader --no-scripts --no-progress --no-autoloader --no-cache \
   ;
 VOLUME /var/www/html/vendor
