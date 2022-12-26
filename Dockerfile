@@ -44,4 +44,5 @@ RUN sed -i "s|exec \"\$@\"||g" `which docker-php-entrypoint` \
     exec \"\$@\"; \
     " >> `which docker-php-entrypoint`;
 
-CMD ["php", "artisan", "octane:start", "--port=80"]
+CMD ["php", "artisan", "octane:start", "--port=80", "--host=0.0.0.0"]
+EXPOSE 80
