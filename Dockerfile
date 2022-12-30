@@ -19,7 +19,6 @@ RUN docker-php-ext-enable  \
     pdo_mysql \
     openswoole \
     zip \
-  && sed -i "s|/var/www/html|/var/www/html/public|g" $APACHE_CONFDIR/sites-enabled/000-default.conf \
   ; rm -rf vendor && mkdir -p vendor && php -d memory_limit=-1 `which composer` install -no --apcu-autoloader --no-scripts --no-progress --no-autoloader --no-cache \
   ; php -d memory_limit=-1 `which composer` require --prefer-stable -Wno --apcu-autoloader --no-scripts --no-progress --no-cache -W laravel/octane \
   ;
@@ -41,6 +40,7 @@ RUN sed -i "s|exec \"\$@\"||g" `which docker-php-entrypoint` \
     php artisan config:cache; \
     php artisan migrate --force; \
     set +e; php artisan psgc:parse; set -e; \
+    php artisan optimize; \
     exec \"\$@\"; \
     " >> `which docker-php-entrypoint`;
 
