@@ -17,7 +17,7 @@ RUN docker-php-ext-enable  \
     opcache \
     pcntl \
     pdo_mysql \
-    openswoole \
+    swoole \
     zip \
   ; rm -rf vendor && mkdir -p vendor && php -d memory_limit=-1 `which composer` install -no --apcu-autoloader --no-scripts --no-progress --no-autoloader --no-cache \
   ; php -d memory_limit=-1 `which composer` require --prefer-stable -Wno --apcu-autoloader --no-scripts --no-progress --no-cache -W laravel/octane \
