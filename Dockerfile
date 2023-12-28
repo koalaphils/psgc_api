@@ -1,6 +1,6 @@
 FROM ghcr.io/koalaphils/php:8.2-cli-alpine
 
-COPY --from=composer/composer /usr/bin/composer /usr/local/bin/composer
+COPY --link --from=composer/composer /usr/bin/composer /usr/local/bin/composer
 RUN composer config --global use-github-api false
 
 COPY opt/php/*.ini $PHP_INI_DIR/conf.d/
