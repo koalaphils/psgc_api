@@ -18,12 +18,14 @@ services:
     volumes:
       - ./app:/var/www/html:rw
     depends_on:
-      - psgc-db
+      psgc-db:
+        condition: service_healthy
     restart: unless-stopped
     ports:
       - 9095:80
   psgc-db:
-    image: mysql/mysql-server:8.0
+    image: mysql/mysql-server:latest
+    init: true
     environment:
       - MYSQL_DATABASE=psgc_api
       - MYSQL_USER=psgc_user
